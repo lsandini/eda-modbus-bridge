@@ -31,7 +31,7 @@ describe('setSetting', () => {
     beforeEach(() => {
         mockClient = {
             writeRegister: jest.fn().mockResolvedValue(undefined),
-            writeCoil: jest.fn().mockResolvedValue(undefined),
+            writeCoils: jest.fn().mockResolvedValue(undefined),
         } as any
     })
 
@@ -108,10 +108,10 @@ describe('setSetting', () => {
     describe('coil settings (boolean)', () => {
         test('should accept boolean values for coil settings', async () => {
             await setSetting(mockClient, 'coolingAllowed', true)
-            expect(mockClient.writeCoil).toHaveBeenCalledWith(52, true)
+            expect(mockClient.writeCoils).toHaveBeenCalledWith(52, [true])
 
             await setSetting(mockClient, 'heatingAllowed', false)
-            expect(mockClient.writeCoil).toHaveBeenCalledWith(54, false)
+            expect(mockClient.writeCoils).toHaveBeenCalledWith(54, [false])
         })
 
         test('should reject string values for coil settings', async () => {
